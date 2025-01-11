@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let playerXName = 'Player X';
   let playerOName = 'Player O';
 
-  // Welcome screen and game mode selection
   document.getElementById('two-player-btn').addEventListener('click', () => {
     gameMode = 'player';
     document.getElementById('welcome-container').style.display = 'none';
@@ -19,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('name-container').style.display = 'block';
   });
 
-  // Handle name entry and start the game
   document.getElementById('start-game').addEventListener('click', () => {
     playerXName = document.getElementById('playerX').value || 'Player X';
     playerOName = document.getElementById('playerO').value || 'Player O';
@@ -29,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeGame();
   });
 
-  // Create the game board
   function createBoard() {
     const gameBoard = document.getElementById('game-board');
     gameBoard.innerHTML = '';
@@ -45,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Handle cell click
   function handleCellClick(event) {
     const index = event.target.dataset.index;
     if (board[index] || !gameActive) return;
@@ -78,12 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Check if there is a winner
   function checkWinner() {
     const winningCombinations = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-      [0, 4, 8], [2, 4, 6] // Diagonals
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+      [0, 4, 8], [2, 4, 6] 
     ];
 
     for (let combination of winningCombinations) {
@@ -96,12 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return false;
   }
 
-  // Check for a draw
   function checkDraw() {
     return board.every(cell => cell !== '');
   }
 
-  // Highlight the winning cells
   function highlightWinningCells(winningCombination) {
     winningCombination.forEach(index => {
       const cell = document.querySelector(`[data-index='${index}']`);
@@ -109,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // AI makes a move
   function aiMove() {
     setTimeout(() => {
       const emptyCells = board.reduce((acc, curr, index) => {
@@ -138,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 500);
   }
 
-  // Celebrate the winner with a simple animation
   function celebrateWinner(winnerName) {
     const gameContainer = document.getElementById('game-container');
     const celebrationMessage = document.createElement('div');
@@ -155,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000); // Remove the message after 3 seconds
   }
 
-  // Restart the game
   document.getElementById('restart-game').addEventListener('click', () => {
     board = ['', '', '', '', '', '', '', '', ''];
     currentPlayer = 'X';
@@ -166,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
     createBoard();
   });
 
-  // Go back to the welcome page
   document.getElementById('back-to-welcome').addEventListener('click', () => {
     board = ['', '', '', '', '', '', '', '', ''];
     currentPlayer = 'X';
